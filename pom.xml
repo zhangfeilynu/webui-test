@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.chinaredstar.qm</groupId>
+  <artifactId>webui-test</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>webui-test</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>    
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.10</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+    <!-- <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-server</artifactId>
+      <version>3.11.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-remote-driver</artifactId>
+      <version>3.11.0</version>
+    </dependency> -->
+  </dependencies>
+  
+   <build>
+     <plugins>
+       <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.19.1</version>   
+          <configuration>
+            <argLine>-Dfile.encoding=UTF-8</argLine>
+            <forkMode>once</forkMode>
+            <suiteXmlFiles>              
+              <suiteXmlFile>./src/test/java/testng/testng.xml</suiteXmlFile>                           
+            </suiteXmlFiles>
+            <systemPropertyVariables>
+                <jenkins.buildtag>N/A</jenkins.buildtag>
+                <jenkins.builduser>N/A</jenkins.builduser>
+                <environment>${demo.automation.environment}</environment>
+            </systemPropertyVariables>            
+            <properties>
+           <!--    <property>
+                  <name>usedefaultlisteners</name>
+                  <value>false</value>                  
+              </property>
+              <property>
+                  <name>listener</name>
+                  <value>com.chinaredstar.restapi.report.ExtentTestNGITestListener,com.chinaredstar.restapi.customreport.GenerateReporter,com.chinaredstar.restapi.customreport.TestNGListener</value>
+              </property> -->
+            </properties>
+          </configuration>          
+       </plugin>      
+       
+       
+     </plugins>
+  </build>
+  
+  <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <demo.automation.environment>dev</demo.automation.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat1</id>
+            <properties>
+                <demo.automation.environment>uat1</demo.automation.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>stg</id>
+            <properties>
+                <demo.automation.environment>stg</demo.automation.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties>
+                <demo.automation.environment>prd</demo.automation.environment>
+            </properties>
+        </profile>
+   </profiles>
+</project>
